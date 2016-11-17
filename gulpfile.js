@@ -12,7 +12,7 @@ concat      = require('gulp-concat');
 
 gulp.task('default', function() {
   // 将你的默认的任务代码放在这
-  gulp.start('serve');
+  gulp.start('build');
 });
 
 // 静态服务器
@@ -68,6 +68,11 @@ gulp.task('html', function () {
 gulp.task('js-watch', ['js'], browserSync.reload);
 gulp.task('css-watch', ['css'], browserSync.reload);
 gulp.task('html-watch', ['html'], browserSync.reload);
+
+
+gulp.task('build', ['html','js','css'] , function() {
+    console.log('----build success!----');
+});
 
 // 使用默认任务启动Browsersync，监听文件
 gulp.task('serve', ['html','js','css'], function () { 
