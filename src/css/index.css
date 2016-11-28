@@ -1,0 +1,79 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html,body{
+	width: 100%;
+	height:100%;
+	box-sizing:border-box;
+	font-family:"Helvetica Neue", Helvetica, "microsoft yahei";
+}
+
+a,a:link,a:visited{
+	text-decoration: none;
+}
+
+.header{
+	width:100%;
+	height:4rem;
+	background-color: #2070f0;
+	color:#fff;
+	line-height: 4rem;
+}
+
+/************ mytool ************/
+.pointer{
+	cursor: pointer;
+}
+.ft-yh{
+	font-family: "microsoft yahei";
+}
+.fs-16{
+	font-size: 16px;
+}
+.fs-18{
+	font-size: 18px;
+}
+.fs-22{
+	font-size: 22px;
+}
+
+.f-l{
+	float: left;
+}
+.f-r{
+	float: right;
+}
+
+.dis-inline-b{
+	display: inline-block;
+}
+.dis-b{
+	display: block;
+}
+
+.ta-l{
+	text-align: left;
+}
+.ta-r{
+	text-align: right;
+}
+.ta-c{
+	text-align: center;
+}
+
+.pd-5{
+	padding: 5px;
+}
+.pt-10{
+	padding-top: 10px;
+}
+.pb-10{
+	padding-bottom: 10px;
+}
+.pl-10{
+	padding-left: 10px;
+}
+.pr-10{
+	padding-right: 10px;
+}

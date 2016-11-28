@@ -4,6 +4,9 @@ gulp        = require('gulp'),
 browserSync = require('browser-sync'), 
 browserify  = require('browserify'),
 uglify      = require('gulp-uglify'),
+path        = require('gulp-path'),
+less        = require('gulp-less'),
+sass        = require('gulp-sass'),
 htmlmin     = require('gulp-htmlmin'),
 minifycss   = require('gulp-minify-css'),
 rename      = require('gulp-rename'),
@@ -14,6 +17,38 @@ gulp.task('default', function() {
   // 将你的默认的任务代码放在这
   gulp.start('build');
 });
+
+var config = {
+    css : {
+        src: 'src/css',
+        dest: 'dist/css',
+        filter: '**/*.css'
+    },
+    js:{
+        src: 'src/js',
+        dest: 'dist/js',
+        filter: ['**/*.js','**/*.coffee']
+    },
+    less: {
+        src: 'src/less',
+        dest: 'dist/less',
+        filter: '**/*.less',
+        conf:{
+            paths : ['./']
+        }
+    },
+    sass:{
+        src: 'src/sass',
+        dest: 'dist/sass',
+        filter: ['**/*.scsss','**/*.sass'],
+        conf: {
+          compass: false,
+          bundleExec: true,
+          sourcemap: true,
+          sourcemapPath: '../scss'
+        }
+    }
+}
 
 // 静态服务器
 gulp.task('bsrc', function() {
@@ -33,14 +68,29 @@ gulp.task('proxy', function() {
 });
 */
 
-// 处理完html/js/css文件后返回流   //.pipe(browserify())
- gulp.task('css', function () { 
-    return gulp.src('src/css/*css')
+gulp.task('less', function(){
+    return gulp.src( path.join(config.less.src, config.less.filter) )
+        .pipe(less())
+        //.pipe(gulp.dest(config.less.dest))
+        .pipe(concat('less.css'))
+        .pipe(gulp.dest(config.css.src));
+});
+
+gulp.task('sass', function(){
+    return gulp.src( path.join(config.sass.src, config.sass.filter) )
+        .pipe(sass(config.sass.conf))
+        .pipe(gulp.dest(config.sass.dest))
+        .pipe(concat('sass.css'))
+        .pipe(gulp.dest(config.css.src));
+});
+
+ gulp.task('css', ['less', 'sass'], function () { 
+    return gulp.src(config.css.src)
     	.pipe(concat('style.css'))
-    	.pipe(gulp.dest('dist/css/'))
+    	.pipe(gulp.dest(config.css.dest))
     	.pipe(rename({suffix:'.min'}))
     	.pipe(minifycss())
-    	.pipe(gulp.dest('dist/css/'));    
+    	.pipe(gulp.dest(config.css.dest));    
 });
 gulp.task('js', function () {
      return gulp.src('src/js/*js')
